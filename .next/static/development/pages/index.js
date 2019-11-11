@@ -10232,7 +10232,7 @@ function (_React$Component) {
 
 /***/ }),
 
-/***/ 5:
+/***/ 4:
 /*!****************************************************************************************************************************************************!*\
   !*** multi next-client-pages-loader?page=%2F&absolutePagePath=%2FUsers%2Fagustinquetto%2FDocuments%2FGitHub%2Fcourseit-musikit%2Fpages%2Findex.js ***!
   \****************************************************************************************************************************************************/
@@ -10255,5 +10255,5 @@ module.exports = dll_13346faca0e924a89b24;
 
 /***/ })
 
-},[[5,"static/runtime/webpack.js"]]]);
+},[[4,"static/runtime/webpack.js"]]]);
 //# sourceMappingURL=index.js.map

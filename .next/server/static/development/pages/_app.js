@@ -150,16 +150,17 @@ class AccessToken extends react__WEBPACK_IMPORTED_MODULE_0___default.a.Component
       accessToken,
       at
     } = this.props;
-    setInterval(async () => {
-      let accessToken = false;
-      const response = await axios__WEBPACK_IMPORTED_MODULE_4___default.a.post(`http://${host}/spotify/auth?code=${accessToken.refresh_token}`);
+    /* setInterval(async () => {
+        let accessTokenTmp = false;
+        const response = await axios.post(
+            `${location.href}spotify/auth?code=${accessToken.refresh_token}`
+        );
+        if (response.status == 200 && response.data) {
+            accessTokenTmp = response.data;
+        }
+        dispatch(SetAccessToken(accessTokenTmp));
+    }, at.expires_in); */
 
-      if (response.status == 200 && response.data) {
-        accessToken = response.data;
-      }
-
-      dispatch(Object(_actions_Spotify__WEBPACK_IMPORTED_MODULE_3__["SetAccessToken"])(accessToken));
-    }, at.expires_in);
     dispatch(Object(_actions_Spotify__WEBPACK_IMPORTED_MODULE_3__["SetAccessToken"])(at));
   }
 

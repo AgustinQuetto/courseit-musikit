@@ -7,16 +7,16 @@ import axios from "axios";
 class AccessToken extends React.Component {
     componentDidMount() {
         const { dispatch, accessToken, at } = this.props;
-        setInterval(async () => {
+        /* setInterval(async () => {
             let accessTokenTmp = false;
             const response = await axios.post(
-                `http://${host}/spotify/auth?code=${accessToken.refresh_token}`
+                `${location.href}spotify/auth?code=${accessToken.refresh_token}`
             );
             if (response.status == 200 && response.data) {
                 accessTokenTmp = response.data;
             }
             dispatch(SetAccessToken(accessTokenTmp));
-        }, at.expires_in);
+        }, at.expires_in); */
         dispatch(SetAccessToken(at));
     }
     render() {
