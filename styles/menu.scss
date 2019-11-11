@@ -1,0 +1,58 @@
+.menu {
+    background-color: #050505;
+    height: 90vh;
+    width: 15vw;
+    min-width: 170px;
+    img {
+        width: 128px;
+        padding: 20px 0px 0px 20px;
+    }
+    .section {
+        margin-top: 15px;
+        header {
+            font-size: 0.8em;
+            color: #b5b5b5;
+            padding-left: 23px;
+            margin-top: 30px;
+        }
+        ul {
+            color: #a6a6a6;
+            list-style-type: none;
+            padding: 0px;
+            font-size: 0.9em;
+            li {
+                padding: 10px;
+                padding-left: 23px;
+                cursor: pointer;
+                svg {
+                    font-size: 1.5em;
+                    min-width: 40px;
+                }
+            }
+            li:hover {
+                background-color: #101010;
+                color: white;
+            }
+            .active {
+                padding-left: 20px;
+                border-left: 3px solid #65d36e;
+                color: white;
+            }
+            .add-playlist {
+                display: flex;
+                text-align: middle;
+                vertical-align: middle;
+                .add-square {
+                    font-size: 2em;
+                    line-height: 0.7em;
+                    padding: 15px;
+                    background-color: grey;
+                }
+                label {
+                    margin-left: 15px;
+                    margin-top: 15px;
+                }
+            }
+        }
+    }
+}

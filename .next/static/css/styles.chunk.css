@@ -1,0 +1,66 @@
+.menu {
+  background-color: #050505;
+  height: 90vh;
+  width: 15vw;
+  min-width: 170px; }
+  .menu img {
+    width: 128px;
+    padding: 20px 0px 0px 20px; }
+  .menu .section {
+    margin-top: 15px; }
+    .menu .section header {
+      font-size: 0.8em;
+      color: #b5b5b5;
+      padding-left: 23px;
+      margin-top: 30px; }
+    .menu .section ul {
+      color: #a6a6a6;
+      list-style-type: none;
+      padding: 0px;
+      font-size: 0.9em; }
+      .menu .section ul li {
+        padding: 10px;
+        padding-left: 23px;
+        cursor: pointer; }
+        .menu .section ul li svg {
+          font-size: 1.5em;
+          min-width: 40px; }
+      .menu .section ul li:hover {
+        background-color: #101010;
+        color: white; }
+      .menu .section ul .active {
+        padding-left: 20px;
+        border-left: 3px solid #65d36e;
+        color: white; }
+      .menu .section ul .add-playlist {
+        display: flex;
+        text-align: middle;
+        vertical-align: middle; }
+        .menu .section ul .add-playlist .add-square {
+          font-size: 2em;
+          line-height: 0.7em;
+          padding: 15px;
+          background-color: grey; }
+        .menu .section ul .add-playlist label {
+          margin-left: 15px;
+          margin-top: 15px; }
+
+.container {
+  background-color: #181818;
+  height: 90vh;
+  width: 85vw; }
+
+.footer {
+  background-color: #282828;
+  height: 10vh;
+  width: 100vw; }
+
+body {
+  font-family: "Montserrat", sans-serif;
+  margin: 0px; }
+
+.flex-container {
+  display: flex; }
+
+
+/*# sourceMappingURL=styles.chunk.css.map*/
