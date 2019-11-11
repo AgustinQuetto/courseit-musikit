@@ -1,0 +1,32 @@
+.user {
+    position: absolute;
+    bottom: 12vh;
+    color: #a6a6a6;
+    padding: 10px 20px 0px;
+    line-height: 32px;
+    font-size: 12px;
+    width: 12.5vw;
+    hr {
+        border-color: #a6a6a6;
+    }
+    .info {
+        display: flex;
+        color: white;
+        padding: 5px;
+        .circular-portrait {
+            width: 32px;
+            height: 32px;
+            overflow: hidden;
+            border-radius: 50%;
+            img {
+                width: 100%;
+                height: auto;
+                margin-left: -20px;
+                margin-top: -20px;
+            }
+        }
+        span {
+            padding-left: 5px;
+        }
+    }
+}

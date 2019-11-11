@@ -9,12 +9,12 @@ import Router from "next/router";
 import { Provider } from "react-redux";
 import { connect } from "react-redux";
 import withReduxStore from "../with-redux-store";
-import queryString from "query-string";
 
 import "../styles/_app.scss";
 import _ from "lodash";
 import axios from "axios";
 import config from "../config";
+import { SetAccessToken, UserMe } from "../actions/Spotify";
 
 class CustomApp extends App {
     static async getInitialProps({ ctx }) {
@@ -25,45 +25,31 @@ class CustomApp extends App {
 
         let authed = false;
         let accessToken = {};
-        if (query.code && host) {
-            try {
-                const response = await axios.post(
-                    `http://${host}/spotify/auth?${queryString.stringify(
-                        query
-                    )}`
-                );
-                if (response.status == 200 && response.data) {
-                    authed = true;
-                    accessToken = response.data;
-                }
-            } catch (e) {
-                console.log(e);
-            }
-        }
-
-        return { query, spotifyAuth, authed: authed, at: accessToken };
-    }
-
-    constructor(props) {
-        super(props);
-        this.state = {
-            enabled: false
+        return {
+            query,
+            host,
+            spotifyAuth,
+            authed: authed,
+            at: accessToken
         };
     }
 
-    componentDidMount() {
+    async componentDidMount() {
+        const { query, host, reduxStore } = this.props;
+        await reduxStore.dispatch(SetAccessToken({ query: query, host: host }));
         Router.replace(location.pathname);
     }
 
     render() {
-        const { Component, pageProps, reduxStore, at } = this.props;
+        console.log("asd", this.props.reduxStore.getState());
+        const { Component, pageProps, reduxStore } = this.props;
         const enabled = !!_.get(reduxStore.getState(), "Spotify.accessToken");
         return (
             <Provider store={reduxStore}>
                 <Head key="head">
                     <title>Musikit</title>
                 </Head>
-                {enabled ? (
+                {enabled && (
                     <React.Fragment>
                         <div className="flex-container">
                             <Menu />
@@ -73,9 +59,7 @@ class CustomApp extends App {
                         </div>
                         <Footer />
                     </React.Fragment>
-                ) : at ? (
-                    <AccessToken at={at} />
-                ) : null}
+                )}
             </Provider>
         );
     }
