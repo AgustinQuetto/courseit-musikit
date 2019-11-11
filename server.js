@@ -3,6 +3,7 @@ const next = require("next");
 const cookieParser = require("cookie-parser");
 const config = require("./config");
 const _ = require("lodash");
+const env = process.env;
 
 const port = parseInt(process.env.PORT, 10) || 3000;
 const dev = process.env.NODE_ENV !== "production";
@@ -12,15 +13,13 @@ const handle = app.getRequestHandler();
 const SpotifyController = require("./controllers/SpotifyController");
 const SpotifyControllerInstance = new SpotifyController(
     config.client_id,
-    config.client_secret
+    env.SPOTIFY_CLIENT_SECRET,
+    config.redirect_uri
 );
 
 const checkAuth = (req, res, next) => {
-    const query = req.query || {};
-
-    let code = _.get(req, "cookies.code") ? req.cookies.code : "";
-    let queryCode = _.get(req, "query.code") ? req.query.code : "";
-    if (!queryCode && !code) {
+    let code = _.get(req, "query.code") ? req.query.code : "";
+    if (!code) {
         res.redirect(config.spotifyAuth);
     }
     next();
@@ -34,22 +33,14 @@ app.prepare().then(() => {
         return app.render(req, res, "/");
     });
 
-    server.get("/app", (req, res) => {
-        return app.render(req, res, "/index");
-    });
-
-    server.get("/spotify/auth", async (req, res) => {
-        if (!req.cookies.code)
-            return res.status(500).json({ error: "missing cookie: code" });
+    server.post("/spotify/auth", async (req, res) => {
+        if (!req.query.code)
+            return res.status(500).json({ error: "missing query param: code" });
         try {
-            const login = await SpotifyControllerInstance.login(
-                req.cookies.code
-            );
+            const login = await SpotifyControllerInstance.login(req.query.code);
             const status = login.error ? 500 : 200;
             return res.status(status).json(login);
-        } catch (e) {
-            console.log(e);
-        }
+        } catch (e) {}
     });
 
     server.all("*", (req, res) => {

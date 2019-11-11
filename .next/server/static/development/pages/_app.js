@@ -93,6 +93,92 @@ module.exports =
 /************************************************************************/
 /******/ ({
 
+/***/ "./actions/Spotify.js":
+/*!****************************!*\
+  !*** ./actions/Spotify.js ***!
+  \****************************/
+/*! exports provided: SetAccessToken, UserMe */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "SetAccessToken", function() { return SetAccessToken; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "UserMe", function() { return UserMe; });
+const SetAccessToken = data => async dispatch => {
+  return dispatch({
+    type: "SetAccessToken",
+    value: data
+  });
+};
+const UserMe = data => async dispatch => {
+  return dispatch({
+    type: "UserMe",
+    value: data
+  });
+};
+
+/***/ }),
+
+/***/ "./components/AccessToken.js":
+/*!***********************************!*\
+  !*** ./components/AccessToken.js ***!
+  \***********************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "react");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-redux */ "react-redux");
+/* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(react_redux__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var next_link__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! next/link */ "./node_modules/next/link.js");
+/* harmony import */ var next_link__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(next_link__WEBPACK_IMPORTED_MODULE_2__);
+/* harmony import */ var _actions_Spotify__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../actions/Spotify */ "./actions/Spotify.js");
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! axios */ "axios");
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_4__);
+
+
+
+
+
+
+class AccessToken extends react__WEBPACK_IMPORTED_MODULE_0___default.a.Component {
+  componentDidMount() {
+    const {
+      dispatch,
+      accessToken,
+      at
+    } = this.props;
+    setInterval(async () => {
+      let accessToken = false;
+      const response = await axios__WEBPACK_IMPORTED_MODULE_4___default.a.post(`http://${host}/spotify/auth?code=${accessToken.refresh_token}`);
+
+      if (response.status == 200 && response.data) {
+        accessToken = response.data;
+      }
+
+      dispatch(Object(_actions_Spotify__WEBPACK_IMPORTED_MODULE_3__["SetAccessToken"])(accessToken));
+    }, at.expires_in);
+    dispatch(Object(_actions_Spotify__WEBPACK_IMPORTED_MODULE_3__["SetAccessToken"])(at));
+  }
+
+  render() {
+    return null;
+  }
+
+}
+
+function mapStateToProps(state) {
+  return {
+    accessToken: state.Spotify.accessToken
+  };
+}
+
+/* harmony default export */ __webpack_exports__["default"] = (Object(react_redux__WEBPACK_IMPORTED_MODULE_1__["connect"])(mapStateToProps)(AccessToken));
+
+/***/ }),
+
 /***/ "./components/Container.js":
 /*!*********************************!*\
   !*** ./components/Container.js ***!
@@ -170,7 +256,9 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _fortawesome_react_fontawesome__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(_fortawesome_react_fontawesome__WEBPACK_IMPORTED_MODULE_2__);
 /* harmony import */ var _fortawesome_free_solid_svg_icons__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @fortawesome/free-solid-svg-icons */ "@fortawesome/free-solid-svg-icons");
 /* harmony import */ var _fortawesome_free_solid_svg_icons__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(_fortawesome_free_solid_svg_icons__WEBPACK_IMPORTED_MODULE_3__);
+/* harmony import */ var _user__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./user */ "./components/user.js");
 var __jsx = react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement;
+
 
 
 
@@ -198,12 +286,61 @@ class Menu extends react__WEBPACK_IMPORTED_MODULE_0___default.a.Component {
       className: "add-playlist"
     }, __jsx("div", {
       className: "add-square"
-    }, "+"), __jsx("label", null, "Crear playlist")), __jsx("li", null, "Pop Argentina"))));
+    }, "+"), __jsx("label", null, "Crear playlist")), __jsx("li", null, "Pop Argentina"))), __jsx(_user__WEBPACK_IMPORTED_MODULE_4__["default"], null));
   }
 
 }
 
 /* harmony default export */ __webpack_exports__["default"] = (Menu);
+
+/***/ }),
+
+/***/ "./components/user.js":
+/*!****************************!*\
+  !*** ./components/user.js ***!
+  \****************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "react");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-redux */ "react-redux");
+/* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(react_redux__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var next_link__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! next/link */ "./node_modules/next/link.js");
+/* harmony import */ var next_link__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(next_link__WEBPACK_IMPORTED_MODULE_2__);
+/* harmony import */ var _actions_Spotify__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../actions/Spotify */ "./actions/Spotify.js");
+var __jsx = react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement;
+
+
+
+
+
+class User extends react__WEBPACK_IMPORTED_MODULE_0___default.a.Component {
+  componentDidMount() {
+    const {
+      dispatch,
+      accessToken
+    } = this.props;
+    console.log(accessToken);
+    dispatch(Object(_actions_Spotify__WEBPACK_IMPORTED_MODULE_3__["UserMe"])());
+  }
+
+  render() {
+    return __jsx("div", null);
+  }
+
+}
+
+function mapStateToProps(state) {
+  return {
+    user: state.Spotify.user,
+    accessToken: state.Spotify.accessToken
+  };
+}
+
+/* harmony default export */ __webpack_exports__["default"] = (Object(react_redux__WEBPACK_IMPORTED_MODULE_1__["connect"])(mapStateToProps)(User));
 
 /***/ }),
 
@@ -216,11 +353,22 @@ class Menu extends react__WEBPACK_IMPORTED_MODULE_0___default.a.Component {
 
 const self = {
   client_id: "27cff9ed5a2d459d9c4cfbec446d1358",
-  client_secret: "614cf8ddda704b2ca110ba42fdfa6d08",
-  redirect_uri: "http%3A%2F%2Flocalhost%3A3000%2F"
+  redirect_uri: "http%3A%2F%2Flocalhost%3A3000%2F",
+  spotify_url: "https://api.spotify.com/v1"
 };
 self.spotifyAuth = `https://accounts.spotify.com/authorize?client_id=${self.client_id}&response_type=code&redirect_uri=${self.redirect_uri}&scope=user-read-private%20user-read-email&state=34fFs29kd09`;
 module.exports = self;
+
+/***/ }),
+
+/***/ "./node_modules/@babel/runtime-corejs2/core-js/map.js":
+/*!************************************************************!*\
+  !*** ./node_modules/@babel/runtime-corejs2/core-js/map.js ***!
+  \************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+module.exports = __webpack_require__(/*! core-js/library/fn/map */ "core-js/library/fn/map");
 
 /***/ }),
 
@@ -553,6 +701,313 @@ module.exports = _interopRequireWildcard;
 
 module.exports = __webpack_require__(/*! ./dist/pages/_app */ "./node_modules/next/dist/pages/_app.js")
 
+
+/***/ }),
+
+/***/ "./node_modules/next/dist/client/link.js":
+/*!***********************************************!*\
+  !*** ./node_modules/next/dist/client/link.js ***!
+  \***********************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+var _interopRequireWildcard = __webpack_require__(/*! @babel/runtime-corejs2/helpers/interopRequireWildcard */ "./node_modules/@babel/runtime-corejs2/helpers/interopRequireWildcard.js");
+
+var _interopRequireDefault = __webpack_require__(/*! @babel/runtime-corejs2/helpers/interopRequireDefault */ "./node_modules/@babel/runtime-corejs2/helpers/interopRequireDefault.js");
+
+exports.__esModule = true;
+exports.default = void 0;
+
+var _map = _interopRequireDefault(__webpack_require__(/*! @babel/runtime-corejs2/core-js/map */ "./node_modules/@babel/runtime-corejs2/core-js/map.js"));
+
+var _url = __webpack_require__(/*! url */ "url");
+
+var _react = _interopRequireWildcard(__webpack_require__(/*! react */ "react"));
+
+var _propTypes = _interopRequireDefault(__webpack_require__(/*! prop-types */ "prop-types"));
+
+var _router = _interopRequireDefault(__webpack_require__(/*! ./router */ "./node_modules/next/dist/client/router.js"));
+
+var _rewriteUrlForExport = __webpack_require__(/*! ../next-server/lib/router/rewrite-url-for-export */ "./node_modules/next/dist/next-server/lib/router/rewrite-url-for-export.js");
+
+var _utils = __webpack_require__(/*! ../next-server/lib/utils */ "./node_modules/next/dist/next-server/lib/utils.js");
+/* global __NEXT_DATA__ */
+
+
+function isLocal(href) {
+  const url = (0, _url.parse)(href, false, true);
+  const origin = (0, _url.parse)((0, _utils.getLocationOrigin)(), false, true);
+  return !url.host || url.protocol === origin.protocol && url.host === origin.host;
+}
+
+function memoizedFormatUrl(formatFunc) {
+  let lastHref = null;
+  let lastAs = null;
+  let lastResult = null;
+  return (href, as) => {
+    if (lastResult && href === lastHref && as === lastAs) {
+      return lastResult;
+    }
+
+    const result = formatFunc(href, as);
+    lastHref = href;
+    lastAs = as;
+    lastResult = result;
+    return result;
+  };
+}
+
+function formatUrl(url) {
+  return url && typeof url === 'object' ? (0, _utils.formatWithValidation)(url) : url;
+}
+
+let observer;
+const listeners = new _map.default();
+const IntersectionObserver = false ? undefined : null;
+
+function getObserver() {
+  // Return shared instance of IntersectionObserver if already created
+  if (observer) {
+    return observer;
+  } // Only create shared IntersectionObserver if supported in browser
+
+
+  if (!IntersectionObserver) {
+    return undefined;
+  }
+
+  return observer = new IntersectionObserver(entries => {
+    entries.forEach(entry => {
+      if (!listeners.has(entry.target)) {
+        return;
+      }
+
+      const cb = listeners.get(entry.target);
+
+      if (entry.isIntersecting || entry.intersectionRatio > 0) {
+        observer.unobserve(entry.target);
+        listeners.delete(entry.target);
+        cb();
+      }
+    });
+  }, {
+    rootMargin: '200px'
+  });
+}
+
+const listenToIntersections = (el, cb) => {
+  const observer = getObserver();
+
+  if (!observer) {
+    return () => {};
+  }
+
+  observer.observe(el);
+  listeners.set(el, cb);
+  return () => {
+    try {
+      observer.unobserve(el);
+    } catch (err) {
+      console.error(err);
+    }
+
+    listeners.delete(el);
+  };
+};
+
+class Link extends _react.Component {
+  constructor(props) {
+    super(props);
+    this.p = void 0;
+
+    this.cleanUpListeners = () => {};
+
+    this.formatUrls = memoizedFormatUrl((href, asHref) => {
+      return {
+        href: formatUrl(href),
+        as: asHref ? formatUrl(asHref) : asHref
+      };
+    });
+
+    this.linkClicked = e => {
+      // @ts-ignore target exists on currentTarget
+      const {
+        nodeName,
+        target
+      } = e.currentTarget;
+
+      if (nodeName === 'A' && (target && target !== '_self' || e.metaKey || e.ctrlKey || e.shiftKey || e.nativeEvent && e.nativeEvent.which === 2)) {
+        // ignore click for new tab / new window behavior
+        return;
+      }
+
+      let {
+        href,
+        as
+      } = this.formatUrls(this.props.href, this.props.as);
+
+      if (!isLocal(href)) {
+        // ignore click if it's outside our scope (e.g. https://google.com)
+        return;
+      }
+
+      const {
+        pathname
+      } = window.location;
+      href = (0, _url.resolve)(pathname, href);
+      as = as ? (0, _url.resolve)(pathname, as) : href;
+      e.preventDefault(); //  avoid scroll for urls with anchor refs
+
+      let {
+        scroll
+      } = this.props;
+
+      if (scroll == null) {
+        scroll = as.indexOf('#') < 0;
+      } // replace state instead of push if prop is present
+
+
+      _router.default[this.props.replace ? 'replace' : 'push'](href, as, {
+        shallow: this.props.shallow
+      }).then(success => {
+        if (!success) return;
+
+        if (scroll) {
+          window.scrollTo(0, 0);
+          document.body.focus();
+        }
+      });
+    };
+
+    if (true) {
+      if (props.prefetch) {
+        console.warn('Next.js auto-prefetches automatically based on viewport. The prefetch attribute is no longer needed. More: https://err.sh/zeit/next.js/prefetch-true-deprecated');
+      }
+    }
+
+    this.p = props.prefetch !== false;
+  }
+
+  componentWillUnmount() {
+    this.cleanUpListeners();
+  }
+
+  handleRef(ref) {
+    if (this.p && IntersectionObserver && ref && ref.tagName) {
+      this.cleanUpListeners();
+      this.cleanUpListeners = listenToIntersections(ref, () => {
+        this.prefetch();
+      });
+    }
+  } // The function is memoized so that no extra lifecycles are needed
+  // as per https://reactjs.org/blog/2018/06/07/you-probably-dont-need-derived-state.html
+
+
+  prefetch() {
+    if (!this.p || true) return; // Prefetch the JSON page if asked (only in the client)
+
+    const {
+      pathname
+    } = window.location;
+    const {
+      href: parsedHref
+    } = this.formatUrls(this.props.href, this.props.as);
+    const href = (0, _url.resolve)(pathname, parsedHref);
+
+    _router.default.prefetch(href);
+  }
+
+  render() {
+    let {
+      children
+    } = this.props;
+    const {
+      href,
+      as
+    } = this.formatUrls(this.props.href, this.props.as); // Deprecated. Warning shown by propType check. If the children provided is a string (<Link>example</Link>) we wrap it in an <a> tag
+
+    if (typeof children === 'string') {
+      children = _react.default.createElement("a", null, children);
+    } // This will return the first child, if multiple are provided it will throw an error
+
+
+    const child = _react.Children.only(children);
+
+    const props = {
+      ref: el => {
+        this.handleRef(el);
+
+        if (child && typeof child === 'object' && child.ref) {
+          if (typeof child.ref === 'function') child.ref(el);else if (typeof child.ref === 'object') {
+            child.ref.current = el;
+          }
+        }
+      },
+      onMouseEnter: e => {
+        if (child.props && typeof child.props.onMouseEnter === 'function') {
+          child.props.onMouseEnter(e);
+        }
+
+        this.prefetch();
+      },
+      onClick: e => {
+        if (child.props && typeof child.props.onClick === 'function') {
+          child.props.onClick(e);
+        }
+
+        if (!e.defaultPrevented) {
+          this.linkClicked(e);
+        }
+      } // If child is an <a> tag and doesn't have a href attribute, or if the 'passHref' property is
+      // defined, we specify the current 'href', so that repetition is not needed by the user
+
+    };
+
+    if (this.props.passHref || child.type === 'a' && !('href' in child.props)) {
+      props.href = as || href;
+    } // Add the ending slash to the paths. So, we can serve the
+    // "<page>/index.html" directly.
+
+
+    if (false) {}
+
+    return _react.default.cloneElement(child, props);
+  }
+
+}
+
+Link.propTypes = void 0;
+
+if (true) {
+  const warn = (0, _utils.execOnce)(console.error); // This module gets removed by webpack.IgnorePlugin
+
+  const exact = __webpack_require__(/*! prop-types-exact */ "prop-types-exact");
+
+  Link.propTypes = exact({
+    href: _propTypes.default.oneOfType([_propTypes.default.string, _propTypes.default.object]).isRequired,
+    as: _propTypes.default.oneOfType([_propTypes.default.string, _propTypes.default.object]),
+    prefetch: _propTypes.default.bool,
+    replace: _propTypes.default.bool,
+    shallow: _propTypes.default.bool,
+    passHref: _propTypes.default.bool,
+    scroll: _propTypes.default.bool,
+    children: _propTypes.default.oneOfType([_propTypes.default.element, (props, propName) => {
+      const value = props[propName];
+
+      if (typeof value === 'string') {
+        warn("Warning: You're using a string directly inside <Link>. This usage has been deprecated. Please add an <a> tag as child of <Link>");
+      }
+
+      return null;
+    }]).isRequired
+  });
+}
+
+var _default = Link;
+exports.default = _default;
 
 /***/ }),
 
@@ -1918,6 +2373,18 @@ function createUrl(router) {
 
 /***/ }),
 
+/***/ "./node_modules/next/link.js":
+/*!***********************************!*\
+  !*** ./node_modules/next/link.js ***!
+  \***********************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+module.exports = __webpack_require__(/*! ./dist/client/link */ "./node_modules/next/dist/client/link.js")
+
+
+/***/ }),
+
 /***/ "./pages/_app.js":
 /*!***********************!*\
   !*** ./pages/_app.js ***!
@@ -1934,28 +2401,25 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _components_menu__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../components/menu */ "./components/menu.js");
 /* harmony import */ var _components_Container__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../components/Container */ "./components/Container.js");
 /* harmony import */ var _components_footer__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../components/footer */ "./components/footer.js");
-/* harmony import */ var next_head__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! next/head */ "next/head");
-/* harmony import */ var next_head__WEBPACK_IMPORTED_MODULE_5___default = /*#__PURE__*/__webpack_require__.n(next_head__WEBPACK_IMPORTED_MODULE_5__);
-/* harmony import */ var next_router__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! next/router */ "next/router");
-/* harmony import */ var next_router__WEBPACK_IMPORTED_MODULE_6___default = /*#__PURE__*/__webpack_require__.n(next_router__WEBPACK_IMPORTED_MODULE_6__);
-/* harmony import */ var js_cookie__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! js-cookie */ "js-cookie");
-/* harmony import */ var js_cookie__WEBPACK_IMPORTED_MODULE_7___default = /*#__PURE__*/__webpack_require__.n(js_cookie__WEBPACK_IMPORTED_MODULE_7__);
-/* harmony import */ var _store__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ../store */ "./store/index.js");
-/* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! react-redux */ "react-redux");
-/* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_9___default = /*#__PURE__*/__webpack_require__.n(react_redux__WEBPACK_IMPORTED_MODULE_9__);
-/* harmony import */ var _with_redux_store__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ../with-redux-store */ "./with-redux-store/index.js");
-/* harmony import */ var parse_cookies_js__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! parse-cookies.js */ "parse-cookies.js");
-/* harmony import */ var parse_cookies_js__WEBPACK_IMPORTED_MODULE_11___default = /*#__PURE__*/__webpack_require__.n(parse_cookies_js__WEBPACK_IMPORTED_MODULE_11__);
-/* harmony import */ var _styles_app_scss__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! ../styles/_app.scss */ "./styles/_app.scss");
-/* harmony import */ var _styles_app_scss__WEBPACK_IMPORTED_MODULE_12___default = /*#__PURE__*/__webpack_require__.n(_styles_app_scss__WEBPACK_IMPORTED_MODULE_12__);
-/* harmony import */ var lodash__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! lodash */ "lodash");
-/* harmony import */ var lodash__WEBPACK_IMPORTED_MODULE_13___default = /*#__PURE__*/__webpack_require__.n(lodash__WEBPACK_IMPORTED_MODULE_13__);
-/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! axios */ "axios");
-/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_14___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_14__);
-/* harmony import */ var _config__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(/*! ../config */ "./config.js");
-/* harmony import */ var _config__WEBPACK_IMPORTED_MODULE_15___default = /*#__PURE__*/__webpack_require__.n(_config__WEBPACK_IMPORTED_MODULE_15__);
+/* harmony import */ var _components_AccessToken__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../components/AccessToken */ "./components/AccessToken.js");
+/* harmony import */ var next_head__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! next/head */ "next/head");
+/* harmony import */ var next_head__WEBPACK_IMPORTED_MODULE_6___default = /*#__PURE__*/__webpack_require__.n(next_head__WEBPACK_IMPORTED_MODULE_6__);
+/* harmony import */ var next_router__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! next/router */ "next/router");
+/* harmony import */ var next_router__WEBPACK_IMPORTED_MODULE_7___default = /*#__PURE__*/__webpack_require__.n(next_router__WEBPACK_IMPORTED_MODULE_7__);
+/* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! react-redux */ "react-redux");
+/* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_8___default = /*#__PURE__*/__webpack_require__.n(react_redux__WEBPACK_IMPORTED_MODULE_8__);
+/* harmony import */ var _with_redux_store__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ../with-redux-store */ "./with-redux-store/index.js");
+/* harmony import */ var query_string__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! query-string */ "query-string");
+/* harmony import */ var query_string__WEBPACK_IMPORTED_MODULE_10___default = /*#__PURE__*/__webpack_require__.n(query_string__WEBPACK_IMPORTED_MODULE_10__);
+/* harmony import */ var _styles_app_scss__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ../styles/_app.scss */ "./styles/_app.scss");
+/* harmony import */ var _styles_app_scss__WEBPACK_IMPORTED_MODULE_11___default = /*#__PURE__*/__webpack_require__.n(_styles_app_scss__WEBPACK_IMPORTED_MODULE_11__);
+/* harmony import */ var lodash__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! lodash */ "lodash");
+/* harmony import */ var lodash__WEBPACK_IMPORTED_MODULE_12___default = /*#__PURE__*/__webpack_require__.n(lodash__WEBPACK_IMPORTED_MODULE_12__);
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! axios */ "axios");
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_13___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_13__);
+/* harmony import */ var _config__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! ../config */ "./config.js");
+/* harmony import */ var _config__WEBPACK_IMPORTED_MODULE_14___default = /*#__PURE__*/__webpack_require__.n(_config__WEBPACK_IMPORTED_MODULE_14__);
 var __jsx = react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement;
-
 
 
 
@@ -1978,29 +2442,42 @@ class CustomApp extends next_app__WEBPACK_IMPORTED_MODULE_1___default.a {
     ctx
   }) {
     const res = ctx.res ? ctx.res : false;
-    const spotifyAuth = res.spotifyAuth || _config__WEBPACK_IMPORTED_MODULE_15___default.a.spotifyAuth;
+    const spotifyAuth = res.spotifyAuth || _config__WEBPACK_IMPORTED_MODULE_14___default.a.spotifyAuth;
     const query = res.req ? res.req.query : {};
-    const cookies = res.req ? res.req.cookies : {};
+    const host = res.req ? res.req.headers.host : "";
+    let authed = false;
+    let accessToken = {};
+
+    if (query.code && host) {
+      try {
+        const response = await axios__WEBPACK_IMPORTED_MODULE_13___default.a.post(`http://${host}/spotify/auth?${query_string__WEBPACK_IMPORTED_MODULE_10___default.a.stringify(query)}`);
+
+        if (response.status == 200 && response.data) {
+          authed = true;
+          accessToken = response.data;
+        }
+      } catch (e) {
+        console.log(e);
+      }
+    }
+
     return {
       query,
-      cookies,
-      spotifyAuth
+      spotifyAuth,
+      authed: authed,
+      at: accessToken
+    };
+  }
+
+  constructor(props) {
+    super(props);
+    this.state = {
+      enabled: false
     };
   }
 
   componentDidMount() {
-    const {
-      query,
-      cookies,
-      spotifyAuth
-    } = this.props;
-
-    if (!cookies.code && !query.code) {
-      next_router__WEBPACK_IMPORTED_MODULE_6___default.a.replace(spotifyAuth);
-    } else if (query.code && !cookies.code) {
-      js_cookie__WEBPACK_IMPORTED_MODULE_7___default.a.set("code", query.code);
-      next_router__WEBPACK_IMPORTED_MODULE_6___default.a.replace(location.pathname);
-    }
+    next_router__WEBPACK_IMPORTED_MODULE_7___default.a.replace(location.pathname);
   }
 
   render() {
@@ -2008,20 +2485,23 @@ class CustomApp extends next_app__WEBPACK_IMPORTED_MODULE_1___default.a {
       Component,
       pageProps,
       reduxStore,
-      router
+      at
     } = this.props;
-    return __jsx(react_redux__WEBPACK_IMPORTED_MODULE_9__["Provider"], {
+    const enabled = !!lodash__WEBPACK_IMPORTED_MODULE_12___default.a.get(reduxStore.getState(), "Spotify.accessToken");
+    return __jsx(react_redux__WEBPACK_IMPORTED_MODULE_8__["Provider"], {
       store: reduxStore
-    }, __jsx(next_head__WEBPACK_IMPORTED_MODULE_5___default.a, {
+    }, __jsx(next_head__WEBPACK_IMPORTED_MODULE_6___default.a, {
       key: "head"
-    }, __jsx("title", null, "Musikit")), __jsx("div", {
+    }, __jsx("title", null, "Musikit")), enabled ? __jsx(react__WEBPACK_IMPORTED_MODULE_0___default.a.Fragment, null, __jsx("div", {
       className: "flex-container"
-    }, __jsx(_components_menu__WEBPACK_IMPORTED_MODULE_2__["default"], null), __jsx(_components_Container__WEBPACK_IMPORTED_MODULE_3__["default"], null, __jsx(Component, pageProps))), __jsx(_components_footer__WEBPACK_IMPORTED_MODULE_4__["default"], null));
+    }, __jsx(_components_menu__WEBPACK_IMPORTED_MODULE_2__["default"], null), __jsx(_components_Container__WEBPACK_IMPORTED_MODULE_3__["default"], null, __jsx(Component, pageProps))), __jsx(_components_footer__WEBPACK_IMPORTED_MODULE_4__["default"], null)) : at ? __jsx(_components_AccessToken__WEBPACK_IMPORTED_MODULE_5__["default"], {
+      at: at
+    }) : null);
   }
 
 }
 
-/* harmony default export */ __webpack_exports__["default"] = (Object(_with_redux_store__WEBPACK_IMPORTED_MODULE_10__["default"])(CustomApp));
+/* harmony default export */ __webpack_exports__["default"] = (Object(_with_redux_store__WEBPACK_IMPORTED_MODULE_9__["default"])(CustomApp));
 
 /***/ }),
 
@@ -2029,24 +2509,32 @@ class CustomApp extends next_app__WEBPACK_IMPORTED_MODULE_1___default.a {
 /*!*****************************!*\
   !*** ./reducers/Spotify.js ***!
   \*****************************/
-/*! exports provided: initialState, SpotifyReducer */
+/*! exports provided: initialState, Spotify */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "initialState", function() { return initialState; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "SpotifyReducer", function() { return SpotifyReducer; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "Spotify", function() { return Spotify; });
 /* harmony import */ var _babel_runtime_corejs2_core_js_object_assign__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime-corejs2/core-js/object/assign */ "./node_modules/@babel/runtime-corejs2/core-js/object/assign.js");
 /* harmony import */ var _babel_runtime_corejs2_core_js_object_assign__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_corejs2_core_js_object_assign__WEBPACK_IMPORTED_MODULE_0__);
 
 const initialState = {
-  code: ""
+  user: {},
+  bearer: "",
+  accessToken: false
 };
-const SpotifyReducer = (state = initialState, action) => {
+const Spotify = (state = initialState, action) => {
   switch (action.type) {
-    case "AUTH":
+    case "UserMe":
       return _babel_runtime_corejs2_core_js_object_assign__WEBPACK_IMPORTED_MODULE_0___default()({}, state, {
-        code: action.value
+        user: action.value
+      });
+
+    case "SetAccessToken":
+      if (!state.accessToken) state.accessToken = {};
+      return _babel_runtime_corejs2_core_js_object_assign__WEBPACK_IMPORTED_MODULE_0___default()({}, state, {
+        accessToken: action.value
       });
 
     default:
@@ -2075,11 +2563,11 @@ __webpack_require__.r(__webpack_exports__);
 
 
 const initialState = {
-  SpotifyReducer: _reducers_Spotify__WEBPACK_IMPORTED_MODULE_2__["initialState"]
+  Spotify: _reducers_Spotify__WEBPACK_IMPORTED_MODULE_2__["initialState"]
 };
 function initializeStore() {
   return Object(redux__WEBPACK_IMPORTED_MODULE_0__["createStore"])(Object(redux__WEBPACK_IMPORTED_MODULE_0__["combineReducers"])({
-    SpotifyReducer: _reducers_Spotify__WEBPACK_IMPORTED_MODULE_2__["SpotifyReducer"]
+    Spotify: _reducers_Spotify__WEBPACK_IMPORTED_MODULE_2__["Spotify"]
   }), initialState, Object(redux__WEBPACK_IMPORTED_MODULE_0__["applyMiddleware"])(redux_thunk__WEBPACK_IMPORTED_MODULE_1___default.a));
 }
 
@@ -2245,6 +2733,17 @@ module.exports = require("axios");
 
 /***/ }),
 
+/***/ "core-js/library/fn/map":
+/*!*****************************************!*\
+  !*** external "core-js/library/fn/map" ***!
+  \*****************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = require("core-js/library/fn/map");
+
+/***/ }),
+
 /***/ "core-js/library/fn/object/assign":
 /*!***************************************************!*\
   !*** external "core-js/library/fn/object/assign" ***!
@@ -2322,17 +2821,6 @@ module.exports = require("core-js/library/fn/promise");
 
 /***/ }),
 
-/***/ "js-cookie":
-/*!****************************!*\
-  !*** external "js-cookie" ***!
-  \****************************/
-/*! no static exports found */
-/***/ (function(module, exports) {
-
-module.exports = require("js-cookie");
-
-/***/ }),
-
 /***/ "lodash":
 /*!*************************!*\
   !*** external "lodash" ***!
@@ -2366,17 +2854,6 @@ module.exports = require("next/router");
 
 /***/ }),
 
-/***/ "parse-cookies.js":
-/*!***********************************!*\
-  !*** external "parse-cookies.js" ***!
-  \***********************************/
-/*! no static exports found */
-/***/ (function(module, exports) {
-
-module.exports = require("parse-cookies.js");
-
-/***/ }),
-
 /***/ "prop-types":
 /*!*****************************!*\
   !*** external "prop-types" ***!
@@ -2385,6 +2862,28 @@ module.exports = require("parse-cookies.js");
 /***/ (function(module, exports) {
 
 module.exports = require("prop-types");
+
+/***/ }),
+
+/***/ "prop-types-exact":
+/*!***********************************!*\
+  !*** external "prop-types-exact" ***!
+  \***********************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = require("prop-types-exact");
+
+/***/ }),
+
+/***/ "query-string":
+/*!*******************************!*\
+  !*** external "query-string" ***!
+  \*******************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = require("query-string");
 
 /***/ }),
 

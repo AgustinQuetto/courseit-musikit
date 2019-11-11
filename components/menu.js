@@ -6,6 +6,7 @@ import {
     faSearch,
     faSwatchbook
 } from "@fortawesome/free-solid-svg-icons";
+import User from "./user";
 
 class Menu extends React.Component {
     render() {
@@ -37,6 +38,7 @@ class Menu extends React.Component {
                         <li>Pop Argentina</li>
                     </ul>
                 </div>
+                <User />
             </div>
         );
     }

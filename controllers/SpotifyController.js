@@ -2,12 +2,14 @@ const Axios = require("axios");
 const querystring = require("querystring");
 
 class SpotifyController {
-    constructor(clientId, secretId) {
+    constructor(clientId, secretId, redirect_uri) {
         this.clientId = clientId;
         this.secretId = secretId;
+        this.redirect_uri = redirect_uri;
     }
 
     async login(code) {
+        console.log(code);
         const spotifyUrl = "https://accounts.spotify.com/api/token";
 
         const params = {
@@ -25,7 +27,7 @@ class SpotifyController {
                 spotifyUrl,
                 querystring.stringify({
                     grant_type: "authorization_code",
-                    redirect_uri: "http://localhost:3000/app",
+                    redirect_uri: "http://localhost:3000/",
                     code: code
                 }),
                 params

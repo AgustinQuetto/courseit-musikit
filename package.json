@@ -2,9 +2,9 @@
   "name": "custom-server-express",
   "version": "1.0.0",
   "scripts": {
-    "dev": "node server.js",
+    "dev": "SPOTIFY_CLIENT_SECRET=614cf8ddda704b2ca110ba42fdfa6d08 node server.js",
     "build": "next build",
-    "start": "cross-env NODE_ENV=production node server.js"
+    "start": "cross-env NODE_ENV=production SPOTIFY_CLIENT_SECRET=614cf8ddda704b2ca110ba42fdfa6d08 node server.js"
   },
   "dependencies": {
     "@fortawesome/fontawesome-svg-core": "^1.2.25",
@@ -19,6 +19,7 @@
     "next": "latest",
     "node-sass": "^4.12.0",
     "parse-cookies.js": "^0.1.3",
+    "query-string": "^6.8.3",
     "react": "^16.7.0",
     "react-dom": "^16.7.0",
     "react-redux": "^7.1.3",

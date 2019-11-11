@@ -1,12 +1,19 @@
 export const initialState = {
-    code: ""
+    user: {},
+    bearer: "",
+    accessToken: false
 };
 
-export const SpotifyReducer = (state = initialState, action) => {
+export const Spotify = (state = initialState, action) => {
     switch (action.type) {
-        case "AUTH":
+        case "UserMe":
             return Object.assign({}, state, {
-                code: action.value
+                user: action.value
+            });
+        case "SetAccessToken":
+            if (!state.accessToken) state.accessToken = {};
+            return Object.assign({}, state, {
+                accessToken: action.value
             });
         default:
             return state;
