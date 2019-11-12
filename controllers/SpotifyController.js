@@ -9,7 +9,6 @@ class SpotifyController {
   }
 
   async login(code) {
-    console.log(code);
     const spotifyUrl = "https://accounts.spotify.com/api/token";
 
     const params = {
